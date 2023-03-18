@@ -23,7 +23,6 @@ function dijkstra(source, dest) {
 
     if (minNode === "") {
       alert("No Path Exists!");
-      console.log("Graph doesnt connect");
       return [];
     }
 
