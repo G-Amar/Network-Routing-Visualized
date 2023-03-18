@@ -26,6 +26,13 @@ const cy = cytoscape({
       "line-color": "#61bffc",
       "transition-property": "background-color, line-color",
       "transition-duration": "0.5s",
+    })
+    .selector(".highlighted2")
+    .style({
+      "background-color": "#028A0F",
+      "line-color": "#028A0F",
+      "transition-property": "background-color, line-color",
+      "transition-duration": "0.5s",
     }),
 
   elements: {
