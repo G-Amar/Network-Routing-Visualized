@@ -18,19 +18,19 @@ highlightNextEle();
 function dijkstra(source, dest) {
   let visited = new Set();
   const nodes = cy.nodes();
-  let graph = new Map();
+  let graph = new Map();  //{id: {cost, prev, edge}}
   nodes.forEach(element => {
-    graph.set(element.id(), {val: Infinity, prev: "", edge: null});
+    graph.set(element.id(), {cost: Infinity, prev: "", edge: null});
   });
-  graph.get(source)["val"] = 0;
+  graph.get(source)["cost"] = 0;
 
   while(graph.size > 0){
 
-    let minVal = Infinity;
+    let minCost = Infinity;
     let minNode = "";
     for(let key of graph.keys()){
-      if(!visited.has(key) && graph.get(key)['val'] < minVal){
-        minVal = graph.get(key)['val'];
+      if(!visited.has(key) && graph.get(key)['cost'] < minCost){
+        minCost = graph.get(key)['cost'];
         minNode = key;
       }
     }
@@ -49,14 +49,15 @@ function dijkstra(source, dest) {
     //check and update neighbours
     let adjacent = cy.$(`#${minNode}`).connectedEdges();
     adjacent.forEach(edge => {
+      //pick other node than the minNode visited
       let connectedNode =  edge.source().id() === minNode ? edge.target() : edge.source();
-      //console.log(connectedNode.id());
-      //ensure connected node not already vosited
+      
+      //ensure connected node not already visited
       if(!visited.has(connectedNode.id())){
-        let newWeight = minVal + edge.data("weight");
+        let newWeight = minCost + edge.data("weight");
         //console.log(newWeight);
-        if(newWeight < graph.get(connectedNode.id())["val"]){
-          graph.get(connectedNode.id())["val"] = newWeight;
+        if(newWeight < graph.get(connectedNode.id())["cost"]){
+          graph.get(connectedNode.id())["cost"] = newWeight;
           graph.get(connectedNode.id())["prev"] = minNode;
           graph.get(connectedNode.id())["edge"] = edge;
         }
