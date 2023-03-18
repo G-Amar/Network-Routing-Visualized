@@ -24,6 +24,8 @@ function dijkstra(source, dest) {
   });
   graph.get(source)["cost"] = 0;
 
+  let traversed = [];
+
   while(graph.size > 0){
 
     let minCost = Infinity;
@@ -44,6 +46,7 @@ function dijkstra(source, dest) {
     if(minNode === dest) break;
 
     visited.add(minNode);
+    traversed.push(cy.nodes(`#${minNode}`));
     //graph.delete(minNode);
 
     //check and update neighbours
@@ -60,6 +63,8 @@ function dijkstra(source, dest) {
           graph.get(connectedNode.id())["cost"] = newWeight;
           graph.get(connectedNode.id())["prev"] = minNode;
           graph.get(connectedNode.id())["edge"] = edge;
+
+          traversed.push(edge);
         }
       } 
     })
@@ -78,5 +83,10 @@ function dijkstra(source, dest) {
   }
   path.push(cy.nodes(`#${source}`)) //add source
   
-  return path.reverse(); //make it render properly
+
+  //render traversed here
+  return traversed;
+
+  //render path here
+  //return path.reverse(); //make it render properly
 }
