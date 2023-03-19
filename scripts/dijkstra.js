@@ -11,7 +11,7 @@ function dijkstra(source, dest) {
 
   let traversal = [];
 
-  while (visited.size() < graph.size()) {
+  while (visited.size < graph.size) {
     let minCost = Infinity;
     let minNode = "";
     for (let key of graph.keys()) {
