@@ -8,17 +8,29 @@
   </head>
   <body>
     <div id="cy"></div>
-
+    
+    <div>
+      <label for="algorithm">Choose a algorithm</label>
+      <select name="algorithm" id="algorithm">
+        <option value="dijkstra">Dijkstra</option>
+        <option value="bellman ford">Bellman Ford</option>
+      </select>
+    </div>
     <div>
       <label for="addNodeInput">Node Name:</label>
       <input id="addNodeInput"></input>
       <button id="addNodeBtn">Add Node</button>
     </div>
-    <label for="algorithm">Choose a algorithm</label>
-    <select name="algorithm" id="algorithm">
-      <option value="dijkstra">Dijkstra</option>
-      <option value="bellman ford">Bellman Ford</option>
-    </select>
+    <div>
+      <label for="remove">Choose a node to remove</label>
+      <select name="removenode" id="removenode">
+        <option value="node1">Node1</option>
+        <option value="node2">Node2</option>
+      </select>
+      <button id="removeNodebutton">Remove Node</button>
+    </div>
+    
+    
     <script type="module" src="/main.js"></script>
   </body>
 </html>
