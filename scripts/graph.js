@@ -59,6 +59,6 @@ const cy = cytoscape({
 
   zoom: 1,
   pan: { x: 0, y: 0 },
+  
 });
-
 export default cy;
