@@ -1,3 +1,18 @@
+*{
+  margin-top: 5px;
+}
+
+button {
+  transition-duration: 0.4s;
+  color: black;
+
+}
+
+button:hover {
+  background-color: rgba(54, 193, 248, 0.907); /* Green */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 body {
   font: 14px helvetica neue, helvetica, arial, sans-serif;
 }
@@ -11,3 +26,8 @@ body {
 #addNode {
   z-index: 10;
 }
+
+button{
+  
+}
+
