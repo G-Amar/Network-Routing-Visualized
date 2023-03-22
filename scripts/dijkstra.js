@@ -23,7 +23,7 @@ function dijkstra(source, dest) {
 
     if (minNode === "") {
       alert("No Path Exists!");
-      return [];
+      return {traversal, shortestPath:[]};
     }
 
     visited.add(minNode);

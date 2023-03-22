@@ -80,9 +80,13 @@ function distanceVector(source, dest) {
       }
     }
 
-    traversal.push(r);
+    //this always pushes node
+    //traversal.push(r);
 
     if(changed){
+      //this only pushes node if it changed
+      traversal.push(r);
+
       //broadcast to neighbors
       let neighbors = r.neighbourhood('node');
       for(let neighbor of neighbors)
@@ -97,6 +101,11 @@ function distanceVector(source, dest) {
   //console.log(graph);
 
   let shortestPath = [];
+
+  if(graph[source][dest]["cost"] === Infinity){
+    alert("No path exists!");
+    return {traversal, shortestPath};
+  }
 
   let trav = source;
   while (trav !== '') { //'' indicates no more connections, direct edge to node
