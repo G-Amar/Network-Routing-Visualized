@@ -4,12 +4,6 @@ import visualize from "./scripts/visualize";
 import distanceVector from "./scripts/distanceVector";
 import cy from "./scripts/graph";
 
-//var { shortestPath, traversal } = dijkstra("a", "c");
-
-var { shortestPath, traversal } = distanceVector("a", "c");
-
-visualize(traversal, shortestPath);
-
 let addNode = event => {
     let input = document.getElementById("addNode").value;
     cy.add({
@@ -33,6 +27,32 @@ let addEdge = event => {
     cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: `${weight}` }})
 }
 
+var shortestPath, traversal;
+
+let runAlgo = event => {
+    var algo = document.getElementById("algorithm").value;
+    var starting = document.getElementById("start").value;
+    var ending = document.getElementById("end").value;
+   
+    if (algo == "dijkstra"){
+        var { shortestPath, traversal } = dijkstra(`${starting}`, `${ending}`);
+        visualize(traversal, shortestPath); 
+    } else {
+        var { shortestPath, traversal } = distanceVector(`${starting}`, `${ending}`);
+        visualize(traversal, shortestPath); 
+    }  
+
+    for (const t of traversal) {
+        t.removeClass("highlighted");
+    }
+    for (const t of shortestPath) {
+        t.removeClass("highlighted2");
+      }
+}
+
+
+
+document.getElementById("algoBtn").addEventListener("click", runAlgo);
 document.getElementById('addEdgeBtn').addEventListener("click", addEdge);
 document.getElementById('removeNodeBtn').addEventListener('click', removeNode);
 document.getElementById('addNodeBtn').addEventListener('click', addNode);
