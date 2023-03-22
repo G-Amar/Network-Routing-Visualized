@@ -4,12 +4,8 @@ function sleep() {
 
 const visualize = async function (traversal, shortestPath) {
   for (const t of traversal) {
-    t.removeClass("highlighted");
-    t.removeClass("highlighted2");
-  }
-
-  for (const t of traversal) {
     t.addClass("highlighted");
+    setTimeout(() => {t.removeClass("highlighted")}, 500);
     await sleep();
   }
 
