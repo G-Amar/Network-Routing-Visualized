@@ -27,9 +27,11 @@ function dijkstra(source, dest) {
     }
 
     visited.add(minNode);
-    if (graph.get(`${minNode}`)?.edge != null) {
-      traversal.push(graph.get(`${minNode}`).edge);
-    }
+
+    //adds previous edge
+    // if (graph.get(`${minNode}`)?.edge != null) {
+    //   traversal.push(graph.get(`${minNode}`).edge);
+    // }
     traversal.push(cy.nodes(`#${minNode}`));
 
     if (minNode === dest) break;
@@ -43,6 +45,9 @@ function dijkstra(source, dest) {
 
       //ensure connected node not already visited
       if (!visited.has(connectedNode.id())) {
+        //this adds each edge if not already visited connecting node
+        traversal.push(edge);
+        
         let newWeight = minCost + edge.data("weight");
         //console.log(newWeight);
         if (newWeight < graph.get(connectedNode.id())["cost"]) {
