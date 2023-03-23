@@ -16,8 +16,11 @@ let addNode = event => {
 
 let removeNode = event => {
     let input = document.getElementById("removeNode").value;
-    var toRemove = cy.$(`#${input}`)
-    cy.remove(toRemove);
+    if(input != ''){
+        var toRemove = cy.$(`#${input}`)
+        cy.remove(toRemove);
+    }
+    
 }
 
 let addEdge = event => {
@@ -31,7 +34,10 @@ var shortestPath, traversal;
 
 let runAlgo = event => {
     
-
+    for (const t of cy.$()) {
+        t.removeClass("highlighted");
+        t.removeClass("highlighted2");
+    }
     var algo = document.getElementById("algorithm").value;
     var starting = document.getElementById("start").value;
     var ending = document.getElementById("end").value;
@@ -44,10 +50,7 @@ let runAlgo = event => {
         visualize(traversal, shortestPath); 
     }  
 
-    for (const t of cy.$()) {
-        t.removeClass("highlighted");
-        t.removeClass("highlighted2");
-    }
+    
     
 }
 
