@@ -12,13 +12,13 @@ var removeSelect = document.getElementById("removeSelect");
 
 var nodeSelect = document.querySelectorAll(".nodeSelect");
 
-nodeSelect.forEach((item) => {
+nodeSelect.forEach((select) => {
     for (var c = 0; c < nodes.length; c++) {
         var opt = nodes[c].data.id;
         var el = document.createElement("option");
         el.textContent = opt;
         el.value = opt;
-        item.appendChild(el);
+        select.appendChild(el);
     }
 });
 
@@ -30,7 +30,7 @@ for(var c = 0; c < nodes.length; c++){
     removeSelect.appendChild(el);
 }
 
-let addNode = event => {
+let addNode = () => {
     let input = document.getElementById("addNode").value;
     cy.add({
         group: 'nodes',
@@ -42,13 +42,16 @@ let addNode = event => {
     el.textContent = input;
     el.value = input;
     removeSelect.appendChild(el);
-
-    nodeSelect.forEach((item) => {
-        item.appendChild(el);
+    
+    nodeSelect.forEach((select) => {
+        var el = document.createElement("option");
+        el.textContent = input;
+        el.value = input;
+        select.appendChild(el);
     });
 }
 
-let removeNode = event => {
+let removeNode = () => {
     let input = document.getElementById("removeSelect").value;
     if(input != ''){
         var toRemove = cy.$(`#${input}`)
@@ -57,19 +60,22 @@ let removeNode = event => {
     
     removeSelect.remove(removeSelect.selectedIndex);
 
-    nodeSelect.forEach((item) => {
-        item.remove(item.selectedIndex);
+    nodeSelect.forEach((select) => {
+        for (var i = 0; i < select.length; i++) {
+            if (select.options[i].value == input)
+                select.remove(i);
+        };
     });
 }
 
-let addEdge = event => {
+let addEdge = () => {
     let node1 = document.getElementById("edge1").value;
     let node2 = document.getElementById("edge2").value;
     let weight  = document.getElementById("weight").value;
     cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: `${weight}` }})
 }
 
-let runAlgo = event => {
+let runAlgo = () => {
     
     for (const t of cy.$()) {
         t.removeClass("highlighted");
