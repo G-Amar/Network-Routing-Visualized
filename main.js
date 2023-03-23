@@ -4,6 +4,20 @@ import visualize from "./scripts/visualize";
 import distanceVector from "./scripts/distanceVector";
 import cy from "./scripts/graph";
 
+var shortestPath, traversal;
+
+var nodes = cy.json().elements.nodes;
+
+var removeSelect = document.getElementById("removeSelect");
+
+for(var c = 0; c < nodes.length; c++){
+    var opt = nodes[c].data.id;
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    removeSelect.appendChild(el);
+}
+
 let addNode = event => {
     let input = document.getElementById("addNode").value;
     cy.add({
@@ -12,15 +26,20 @@ let addNode = event => {
         position: {x: 200, y: 200}
     }
     )
+    var el = document.createElement("option");
+    el.textContent = input;
+    el.value = input;
+    removeSelect.appendChild(el);
 }
 
 let removeNode = event => {
-    let input = document.getElementById("removeNode").value;
+    let input = document.getElementById("removeSelect").value;
     if(input != ''){
         var toRemove = cy.$(`#${input}`)
         cy.remove(toRemove);
     }
     
+    removeSelect.remove(removeSelect.selectedIndex);
 }
 
 let addEdge = event => {
@@ -29,8 +48,6 @@ let addEdge = event => {
     let weight  = document.getElementById("weight").value;
     cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: `${weight}` }})
 }
-
-var shortestPath, traversal;
 
 let runAlgo = event => {
     
@@ -49,9 +66,6 @@ let runAlgo = event => {
         var { shortestPath, traversal } = distanceVector(`${starting}`, `${ending}`);
         visualize(traversal, shortestPath); 
     }  
-
-    
-    
 }
 
 document.getElementById("algoBtn").addEventListener("click", runAlgo);
