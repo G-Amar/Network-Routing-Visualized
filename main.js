@@ -10,6 +10,18 @@ var nodes = cy.json().elements.nodes;
 
 var removeSelect = document.getElementById("removeSelect");
 
+var nodeSelect = document.querySelectorAll(".nodeSelect");
+
+nodeSelect.forEach((item) => {
+    for (var c = 0; c < nodes.length; c++) {
+        var opt = nodes[c].data.id;
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        item.appendChild(el);
+    }
+});
+
 for(var c = 0; c < nodes.length; c++){
     var opt = nodes[c].data.id;
     var el = document.createElement("option");
@@ -30,6 +42,10 @@ let addNode = event => {
     el.textContent = input;
     el.value = input;
     removeSelect.appendChild(el);
+
+    nodeSelect.forEach((item) => {
+        item.appendChild(el);
+    });
 }
 
 let removeNode = event => {
@@ -40,6 +56,10 @@ let removeNode = event => {
     }
     
     removeSelect.remove(removeSelect.selectedIndex);
+
+    nodeSelect.forEach((item) => {
+        item.remove(item.selectedIndex);
+    });
 }
 
 let addEdge = event => {
