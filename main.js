@@ -30,6 +30,8 @@ let addEdge = event => {
 var shortestPath, traversal;
 
 let runAlgo = event => {
+    
+
     var algo = document.getElementById("algorithm").value;
     var starting = document.getElementById("start").value;
     var ending = document.getElementById("end").value;
@@ -42,12 +44,11 @@ let runAlgo = event => {
         visualize(traversal, shortestPath); 
     }  
 
-    for (const t of traversal) {
+    for (const t of cy.$()) {
         t.removeClass("highlighted");
-    }
-    for (const t of shortestPath) {
         t.removeClass("highlighted2");
-      }
+    }
+    
 }
 
 
