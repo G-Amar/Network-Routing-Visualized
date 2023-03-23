@@ -51,8 +51,6 @@ let runAlgo = event => {
     
 }
 
-
-
 document.getElementById("algoBtn").addEventListener("click", runAlgo);
 document.getElementById('addEdgeBtn').addEventListener("click", addEdge);
 document.getElementById('removeNodeBtn').addEventListener('click', removeNode);
