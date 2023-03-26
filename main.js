@@ -73,8 +73,8 @@ let removeNode = () => {
 let addEdge = () => {
     let node1 = document.getElementById("edge1").value;
     let node2 = document.getElementById("edge2").value;
-    let weight  = document.getElementById("weight").value;
-    cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: `${weight}` }})
+    let weight  = parseInt(document.getElementById("weight").value);
+    cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: weight }})
 }
 
 let runAlgo = () => {
