@@ -3,6 +3,7 @@
 }
 
 button {
+  padding: 8px 10px;
   transition-duration: 0.4s;
   color: black;
 
@@ -27,7 +28,18 @@ body {
   z-index: 10;
 }
 
-button{
-  
+select {
+  width: 11%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+input {
+  width: 12%;
+  background-color: #f1f1f1;
+  padding: 8px 10px;
+  border: none;
 }
 
