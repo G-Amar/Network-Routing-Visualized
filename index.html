@@ -22,18 +22,27 @@
       <button id="algoBtn">Run The Algorithm</button>
     </div>
     <div>
-      <input type = "text" placeholder="Enter a name for the node" id="addNode">
+      <input type = "text" placeholder="Enter node name" id="addNode">
       <button id="addNodeBtn" type = "button">Add Node</button>
     </div>
     <div>
-      <select id="removeSelect"></select>
+      <select id="removeSelect" class="nodeSelect"></select>
       <button id="removeNodeBtn" type = "button">Remove Node</button>
      </div>
     <div>
       <select id="edge1" class="nodeSelect"></select>
       <select id="edge2" class="nodeSelect"></select>
-      <input type = "text" placeholder="add weight" id="weight">
-      <button id="addEdgeBtn" type = "button">Add edge</button>
+      <input type = "number" placeholder="add weight" id="weight">
+      <button id="addEdgeBtn" type = "button">Add Edge</button>
+    </div>
+    <div>
+      <select id="updateEdgeSelect" class="edgeSelect"></select>
+      <input type = "number" placeholder="New weight" id="updateEdgeWeight">
+      <button id="updateEdgeBtn" type = "button">Update Edge</button>
+    </div>
+    <div>
+      <select id="removeEdgeSelect" class="edgeSelect"></select>
+      <button id="removeEdgeBtn" type = "button">Remove Edge</button>
     </div>
     <script type="module" src="/main.js"></script>
   </body>

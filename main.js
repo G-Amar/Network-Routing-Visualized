@@ -8,9 +8,15 @@ var shortestPath, traversal;
 
 var nodes = cy.json().elements.nodes;
 
+var edges = cy.json().elements.edges;
+
 var removeSelect = document.getElementById("removeSelect");
 
 var nodeSelect = document.querySelectorAll(".nodeSelect");
+
+var removeEdgeSelect = document.getElementById("removeEdgeSelect");
+
+var edgeSelect = document.querySelectorAll(".edgeSelect");
 
 nodeSelect.forEach((select) => {
     for (var c = 0; c < nodes.length; c++) {
@@ -22,13 +28,15 @@ nodeSelect.forEach((select) => {
     }
 });
 
-for(var c = 0; c < nodes.length; c++){
-    var opt = nodes[c].data.id;
-    var el = document.createElement("option");
-    el.textContent = opt;
-    el.value = opt;
-    removeSelect.appendChild(el);
-}
+edgeSelect.forEach((select) => {
+  for (var c = 0; c < edges.length; c++) {
+      var opt = edges[c].data.id;
+      var el = document.createElement("option");
+      el.textContent = opt;
+      el.value = opt;
+      select.appendChild(el);
+  }
+});
 
 let addNode = () => {
     let input = document.getElementById("addNode").value;
@@ -58,8 +66,6 @@ let removeNode = () => {
         cy.remove(toRemove);
     }
     
-    removeSelect.remove(removeSelect.selectedIndex);
-
     nodeSelect.forEach((select) => {
         for (var i = 0; i < select.length; i++) {
             if (select.options[i].value == input) {
@@ -68,12 +74,70 @@ let removeNode = () => {
             }
         }
     });
+
+    //recompute the remaining edges
+    edgeSelect.forEach((select) => {
+      select.textContent = ''; //empty inner html
+      edges = cy.json().elements.edges;
+      for (var c = 0; c < edges.length; c++) {
+          var opt = edges[c].data.id;
+          var el = document.createElement("option");
+          el.textContent = opt;
+          el.value = opt;
+          select.appendChild(el);
+      }
+    });
+}
+
+let removeEdge = () => {
+  let input = document.getElementById("removeEdgeSelect").value;
+  //console.log(input);
+  if(input != ''){
+      var toRemove = cy.$(`#${input}`)
+      cy.remove(toRemove);
+  }
+
+  edgeSelect.forEach((select) => {
+      for (var i = 0; i < select.length; i++) {
+          if (select.options[i].value == input) {
+              select.remove(i);
+              break;
+          }
+      }
+  });
+}
+
+let updateEdge = () => {
+  let input = document.getElementById("updateEdgeSelect").value;
+  let newWeight  = parseFloat(document.getElementById("updateEdgeWeight").value);
+  //console.log(input, newWeight);
+  if(isNaN(newWeight) || newWeight < 0){
+    alert("Invalid weight [Negative or Not a Number]");
+    return;
+  }
+  if(input != ''){
+      cy.$(`#${input}`).data("weight", newWeight)
+  }
+
 }
 
 let addEdge = () => {
     let node1 = document.getElementById("edge1").value;
     let node2 = document.getElementById("edge2").value;
-    let weight  = parseInt(document.getElementById("weight").value);
+    let weight  = parseFloat(document.getElementById("weight").value);
+    //console.log(cy.edges(`#${node1}${node2}`).length, cy.edges(`#${node2}${node1}`));
+    if (cy.edges(`#${node1}${node2}`).length > 0 || cy.edges(`#${node2}${node1}`).length > 0){
+      alert("Edge already exists");
+      return;
+    }
+    if (node1 === node2){
+      alert("No single node edges allowed!");
+      return;
+    }
+    if(isNaN(weight) || weight < 0){
+      alert('Invalid weight [Negative or Not a Number]')
+      return;
+    }
     cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: weight }})
 }
 
@@ -100,3 +164,5 @@ document.getElementById("algoBtn").addEventListener("click", runAlgo);
 document.getElementById('addEdgeBtn').addEventListener("click", addEdge);
 document.getElementById('removeNodeBtn').addEventListener('click', removeNode);
 document.getElementById('addNodeBtn').addEventListener('click', addNode);
+document.getElementById('removeEdgeBtn').addEventListener('click', removeEdge);
+document.getElementById('updateEdgeBtn').addEventListener('click', updateEdge);
