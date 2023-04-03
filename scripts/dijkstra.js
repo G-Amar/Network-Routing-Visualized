@@ -1,5 +1,17 @@
 import cy from "./graph";
 
+function customCopy(graph){
+  let copy = [];
+
+  const nodes = cy.nodes();
+  nodes.forEach((element) => {
+    let node = graph.get(element.id())
+    copy.push([element.id(), node["cost"], node["prev"], node["edge"] && node["edge"].id()])
+  });
+  
+  return copy;
+}
+
 function dijkstra(source, dest) {
   let visited = new Set();
   const nodes = cy.nodes();
@@ -10,6 +22,10 @@ function dijkstra(source, dest) {
   graph.get(source)["cost"] = 0;
 
   let traversal = [];
+
+  let distanceTable = []; //store graphs
+  // first one might be optional
+  distanceTable.push(customCopy(graph)); //store deep copy
 
   while (visited.size < graph.size) {
     let minCost = Infinity;
@@ -23,7 +39,7 @@ function dijkstra(source, dest) {
 
     if (minNode === "") {
       alert("No Path Exists!");
-      return {traversal, shortestPath:[]};
+      return {traversal, shortestPath:[], distanceTable};
     }
 
     visited.add(minNode);
@@ -35,6 +51,7 @@ function dijkstra(source, dest) {
     //   traversal.push(graph.get(`${minNode}`).edge);
     // }
     traversal.push(cy.nodes(`#${minNode}`));
+    distanceTable.push(customCopy(graph)); //store deep copy
 
     if (minNode === dest) break;
 
@@ -75,7 +92,7 @@ function dijkstra(source, dest) {
   shortestPath.push(cy.nodes(`#${source}`)); //add source
   shortestPath.reverse();
   //render traversed here
-  return { traversal, shortestPath };
+  return { traversal, shortestPath, distanceTable};
 }
 
 export default dijkstra;

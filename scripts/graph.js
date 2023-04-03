@@ -45,13 +45,13 @@ const cy = cytoscape({
     ],
 
     edges: [
-      { data: { id: "ae", weight: 1, source: "a", target: "e" } },
-      { data: { id: "ab", weight: 3, source: "a", target: "b" } },
-      { data: { id: "be", weight: 4, source: "b", target: "e" } },
-      { data: { id: "bc", weight: 5, source: "b", target: "c" } },
-      { data: { id: "ce", weight: 6, source: "c", target: "e" } },
-      { data: { id: "cd", weight: 2, source: "c", target: "d" } },
-      { data: { id: "de", weight: 7, source: "d", target: "e" } },
+      { data: { id: "a-e", weight: 1, source: "a", target: "e" } },
+      { data: { id: "a-b", weight: 3, source: "a", target: "b" } },
+      { data: { id: "b-e", weight: 4, source: "b", target: "e" } },
+      { data: { id: "b-c", weight: 5, source: "b", target: "c" } },
+      { data: { id: "c-e", weight: 6, source: "c", target: "e" } },
+      { data: { id: "c-d", weight: 2, source: "c", target: "d" } },
+      { data: { id: "d-e", weight: 7, source: "d", target: "e" } },
     ],
   },
 

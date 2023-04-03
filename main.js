@@ -126,7 +126,7 @@ let addEdge = () => {
     let node2 = document.getElementById("edge2").value;
     let weight  = parseFloat(document.getElementById("weight").value);
     //console.log(cy.edges(`#${node1}${node2}`).length, cy.edges(`#${node2}${node1}`));
-    if (cy.edges(`#${node1}${node2}`).length > 0 || cy.edges(`#${node2}${node1}`).length > 0){
+    if (cy.edges(`#${node1}-${node2}`).length > 0 || cy.edges(`#${node2}-${node1}`).length > 0){
       alert("Edge already exists");
       return;
     }
@@ -138,7 +138,15 @@ let addEdge = () => {
       alert('Invalid weight [Negative or Not a Number]')
       return;
     }
-    cy.add({ group: 'edges', data: { id: `${node1}${node2}`, source: `${node1}`, target: `${node2}`, weight: weight }})
+    cy.add({ group: 'edges', data: { id: `${node1}-${node2}`, source: `${node1}`, target: `${node2}`, weight: weight }})
+    
+    //add edge to each edgeSelect
+    edgeSelect.forEach((select) => {
+        var el = document.createElement("option");
+        el.textContent = `${node1}-${node2}`;
+        el.value = `${node1}-${node2}`;
+        select.appendChild(el);
+    });
 }
 
 let runAlgo = () => {
@@ -152,11 +160,11 @@ let runAlgo = () => {
     var ending = document.getElementById("end").value;
    
     if (algo == "dijkstra"){
-        var { shortestPath, traversal } = dijkstra(`${starting}`, `${ending}`);
-        visualize(traversal, shortestPath); 
+        var { shortestPath, traversal, distanceTable } = dijkstra(`${starting}`, `${ending}`);
+        visualize(traversal, shortestPath, distanceTable); 
     } else {
-        var { shortestPath, traversal } = distanceVector(`${starting}`, `${ending}`);
-        visualize(traversal, shortestPath); 
+        var { shortestPath, traversal, distanceTable } = distanceVector(`${starting}`, `${ending}`);
+        visualize(traversal, shortestPath, distanceTable); 
     }  
 }
 

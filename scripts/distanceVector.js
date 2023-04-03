@@ -1,5 +1,25 @@
 import cy from "./graph";
 
+function customCopy(graph){
+  let copy = [];
+
+  const nodes = cy.nodes();
+
+  for(let node1 of nodes){
+    let node = graph[node1.id()];
+    let partial = [node1.id()];
+    for(let node2 of nodes){
+      let destination = node[node2.id()]
+      partial.push(destination["cost"]);
+      partial.push(destination["via"]);
+      partial.push(destination["edge"] && destination["edge"].id()); //push id if not null
+    }
+    copy.push(partial);
+  }
+  
+  return copy;
+}
+
 function distanceVector(source, dest) {
   const nodes = cy.nodes();
 
@@ -18,6 +38,9 @@ function distanceVector(source, dest) {
     }
   }
 
+  let distanceTable = []; //store graphs
+  distanceTable.push(customCopy(graph)); //store deep copy
+
   const edges = cy.edges();
   for(let edge of edges){
     let src = edge.data('source');
@@ -29,6 +52,8 @@ function distanceVector(source, dest) {
     graph[target][src]['cost'] = cost;
     graph[target][src]['edge'] = edge;
   }
+
+  distanceTable.push(customCopy(graph)); //store deep copy
 
   //console.log(graph);
 
@@ -42,6 +67,7 @@ function distanceVector(source, dest) {
     }
     //console.log(neighbors);
     traversal.push(node); //1st visit each node and broadcast neighbors
+    distanceTable.push(null); //indicate no change
     let adjacentEdges = node.neighbourhood('edge');
     for(let edge of adjacentEdges){
       traversal.push(edge);
@@ -86,6 +112,7 @@ function distanceVector(source, dest) {
     if(changed){
       //this only pushes node if it changed
       traversal.push(r);
+      distanceTable.push(customCopy(graph)); //store deep copy
 
       //broadcast to neighbors
       let neighbors = r.neighbourhood('node');
@@ -104,7 +131,7 @@ function distanceVector(source, dest) {
 
   if(graph[source][dest]["cost"] === Infinity){
     alert("No path exists!");
-    return {traversal, shortestPath};
+    return {traversal, shortestPath, distanceTable};
   }
 
   let trav = source;
@@ -118,7 +145,7 @@ function distanceVector(source, dest) {
   //console.log(shortestPath.map(e => {return e.id()}));
 
   //want traversal to highlight briefly, not sustained
-  return {traversal, shortestPath};
+  return {traversal, shortestPath, distanceTable};
 }
 
 export default distanceVector;
