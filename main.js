@@ -10,11 +10,7 @@ var nodes = cy.json().elements.nodes;
 
 var edges = cy.json().elements.edges;
 
-var removeSelect = document.getElementById("removeSelect");
-
 var nodeSelect = document.querySelectorAll(".nodeSelect");
-
-var removeEdgeSelect = document.getElementById("removeEdgeSelect");
 
 var edgeSelect = document.querySelectorAll(".edgeSelect");
 
@@ -46,10 +42,6 @@ let addNode = () => {
         position: {x: 200, y: 200}
     }
     )
-    var el = document.createElement("option");
-    el.textContent = input;
-    el.value = input;
-    removeSelect.appendChild(el);
     
     nodeSelect.forEach((select) => {
         var el = document.createElement("option");
