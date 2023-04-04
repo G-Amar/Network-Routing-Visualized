@@ -41,7 +41,6 @@ function distanceVector(source, dest) {
   let distanceTable = []; //store graphs
   distanceTable.push(customCopy(graph)); //store deep copy
 
-  const edges = cy.edges();
   for(let node of nodes){
     let adjacentEdges = node.neighbourhood('edge');
     for(let edge of adjacentEdges){

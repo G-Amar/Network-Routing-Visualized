@@ -7,7 +7,7 @@ import cy from "./scripts/graph";
 
 var nodes = cy.json().elements.nodes;
 
-var edges = cy.json().elements.edges;
+var edges = cy.edges();
 
 var nodeSelect = document.querySelectorAll(".nodeSelect");
 
@@ -24,8 +24,8 @@ nodeSelect.forEach((select) => {
 });
 
 edgeSelect.forEach((select) => {
-  for (var c = 0; c < edges.length; c++) {
-      var opt = edges[c].data.id;
+  for (let edge of edges) {
+      var opt = edge.id();
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = opt;
@@ -69,9 +69,9 @@ let removeNode = () => {
     //recompute the remaining edges
     edgeSelect.forEach((select) => {
       select.textContent = ''; //empty inner html
-      edges = cy.json().elements.edges;
-      for (var c = 0; c < edges.length; c++) {
-          var opt = edges[c].data.id;
+      edges = cy.edges()
+      for (let edge of edges) {
+          var opt = edge.id();
           var el = document.createElement("option");
           el.textContent = opt;
           el.value = opt;
