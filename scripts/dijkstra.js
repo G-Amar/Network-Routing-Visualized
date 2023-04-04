@@ -17,7 +17,7 @@ function dijkstra(source, dest) {
   const nodes = cy.nodes();
   let graph = new Map(); //{id: {cost, prev, edge}}
   nodes.forEach((element) => {
-    graph.set(element.id(), { cost: Infinity, prev: "", edge: null });
+    graph.set(element.id(), { cost: Infinity, prev: "-", edge: null });
   });
   graph.get(source)["cost"] = 0;
 
@@ -74,6 +74,8 @@ function dijkstra(source, dest) {
           graph.get(connectedNode.id())["prev"] = minNode;
           graph.get(connectedNode.id())["edge"] = edge;
         }
+        // store updates to each edge
+        distanceTable.push(customCopy(graph)); //store deep copy
       }
     });
     //console.log(adjacent);

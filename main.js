@@ -1,10 +1,9 @@
 import "./style.css";
 import dijkstra from "./scripts/dijkstra";
-import visualize from "./scripts/visualize";
+import visualizeDjikstra from "./scripts/visualizeDjikstra";
+import visualizeDistanceVector from "./scripts/visualizeDistanceVector";
 import distanceVector from "./scripts/distanceVector";
 import cy from "./scripts/graph";
-
-var shortestPath, traversal;
 
 var nodes = cy.json().elements.nodes;
 
@@ -153,10 +152,10 @@ let runAlgo = () => {
    
     if (algo == "dijkstra"){
         var { shortestPath, traversal, distanceTable } = dijkstra(`${starting}`, `${ending}`);
-        visualize(traversal, shortestPath, distanceTable); 
+        visualizeDjikstra(traversal, shortestPath, distanceTable); 
     } else {
         var { shortestPath, traversal, distanceTable } = distanceVector(`${starting}`, `${ending}`);
-        visualize(traversal, shortestPath, distanceTable); 
+        visualizeDistanceVector(traversal, shortestPath, distanceTable); 
     }  
 }
 

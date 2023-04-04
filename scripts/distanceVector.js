@@ -33,8 +33,8 @@ function distanceVector(source, dest) {
     graph[n1] = {};
     for(let node2 of nodes){
       let n2 = node2.id();
-      if(n1 == n2) graph[n1][n2] = {'cost': 0, 'via': '', 'edge': null};
-      else graph[n1][n2] = {'cost': Infinity, 'via': '', 'edge': null};
+      if(n1 == n2) graph[n1][n2] = {'cost': 0, 'via': '-', 'edge': null};
+      else graph[n1][n2] = {'cost': Infinity, 'via': '-', 'edge': null};
     }
   }
 
@@ -42,18 +42,25 @@ function distanceVector(source, dest) {
   distanceTable.push(customCopy(graph)); //store deep copy
 
   const edges = cy.edges();
-  for(let edge of edges){
-    let src = edge.data('source');
-    let target = edge.data('target');
-    let cost = edge.data('weight');
+  for(let node of nodes){
+    let adjacentEdges = node.neighbourhood('edge');
+    for(let edge of adjacentEdges){
+      let src = edge.data('source');
+      let target = edge.data('target');
+      let cost = edge.data('weight');
 
-    graph[src][target]['cost'] = cost;
-    graph[src][target]['edge'] = edge;
-    graph[target][src]['cost'] = cost;
-    graph[target][src]['edge'] = edge;
+      if(node.id() === src){
+        graph[src][target]['cost'] = cost;
+        graph[src][target]['edge'] = edge;
+      }
+      else{ //i.e. node is target
+        graph[target][src]['cost'] = cost;
+        graph[target][src]['edge'] = edge;
+      }
+    }
+    //push for each node
+    distanceTable.push(customCopy(graph)); //store deep copy
   }
-
-  distanceTable.push(customCopy(graph)); //store deep copy
 
   //console.log(graph);
 
@@ -67,7 +74,6 @@ function distanceVector(source, dest) {
     }
     //console.log(neighbors);
     traversal.push(node); //1st visit each node and broadcast neighbors
-    distanceTable.push(null); //indicate no change
     let adjacentEdges = node.neighbourhood('edge');
     for(let edge of adjacentEdges){
       traversal.push(edge);
@@ -135,7 +141,7 @@ function distanceVector(source, dest) {
   }
 
   let trav = source;
-  while (trav !== '') { //'' indicates no more connections, direct edge to node
+  while (trav !== '-') { //'' indicates no more connections, direct edge to node
     shortestPath.push(cy.nodes(`#${trav}`));
     shortestPath.push(graph[trav][dest]["edge"]);
     trav = graph[trav][dest]['via'];
