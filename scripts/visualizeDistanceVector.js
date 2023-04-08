@@ -49,17 +49,14 @@ const visualizeDistanceVector = async function (
   shortestPath,
   distanceTable
 ) {
-  //console.log(distanceTable);
+  console.log(distanceTable);
   let i = 0;
   displayTable(distanceTable[i]);
 
   for (const t of traversal) {
-    //check if t is a node, only update table if t is node, t.isNode()
-    if (t.isNode()) {
-      i++;
-      displayTable(distanceTable[i]);
-      //setTimeout(() => {displayTable(distanceTable[i])}, 500);
-    }
+    i++;
+    displayTable(distanceTable[i]);
+    //setTimeout(() => {displayTable(distanceTable[i])}, 500);
     t.addClass("highlighted");
     setTimeout(() => {
       t.removeClass("highlighted");

@@ -58,7 +58,13 @@ function distanceVector(source, dest) {
       }
     }
     //push for each node
-    distanceTable.push(customCopy(graph)); //store deep copy
+    let graphCopy = customCopy(graph);
+    distanceTable.push(graphCopy); //store deep copy
+
+    //and for each edge
+    for(let edge of adjacentEdges){
+      distanceTable.push(graphCopy); //can store same copy, save space
+    }
   }
 
   //console.log(graph);
@@ -78,6 +84,8 @@ function distanceVector(source, dest) {
       traversal.push(edge);
     }
   }
+
+  //console.log(distanceTable.length, traversal.length) //good till here
 
   const MAX_ITER = 100000;
   let iter = 0;
@@ -117,7 +125,8 @@ function distanceVector(source, dest) {
     if(changed){
       //this only pushes node if it changed
       traversal.push(r);
-      distanceTable.push(customCopy(graph)); //store deep copy
+      let graphCopy = customCopy(graph); //new deep copy
+      distanceTable.push(graphCopy); //store deep copy
 
       //broadcast to neighbors
       let neighbors = r.neighbourhood('node');
@@ -125,8 +134,10 @@ function distanceVector(source, dest) {
         messages.push({'sender': r, 'reciever': neighbor})
 
       let adjacentEdges = r.neighbourhood('edge'); //broadcast via edges
-      for(let edge of adjacentEdges)
+      for(let edge of adjacentEdges){
         traversal.push(edge);
+        distanceTable.push(graphCopy); //save copy of graph for each edge, save space
+      }
     }
   }
 
