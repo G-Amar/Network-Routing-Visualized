@@ -5,8 +5,12 @@ import {
   stepForwardDijkstra,
   stepBackwardDijkstra,
 } from "./scripts/visualizeDijkstra";
-import visualizeDistanceVector from "./scripts/visualizeDistanceVector";
-import distanceVector from "./scripts/distanceVector";
+import {
+  reset as resetDV,
+  runToComplete as runToCompleteDV,
+  stepForward as stepForwardDV,
+  stepBackward as stepBackwardDV,
+} from "./scripts/visualizeDistanceVector";
 import cy from "./scripts/graph";
 
 var nodes = cy.json().elements.nodes;
@@ -161,13 +165,7 @@ let runAlgo = () => {
   if (algo == "dijkstra") {
     resetDijkstra(starting, ending);
   } else {
-    var { shortestPath, traversal, distanceTable } = distanceVector(
-      `${starting}`,
-      `${ending}`
-    );
-    console.log(distanceTable.length, traversal.length);
-
-    visualizeDistanceVector(traversal, shortestPath, distanceTable);
+    resetDV(starting, ending);
   }
 };
 
@@ -176,6 +174,8 @@ let runToComplete = () => {
 
   if (algo == "dijkstra") {
     runToCompleteDijkstra();
+  } else {
+    runToCompleteDV();
   }
 };
 
@@ -184,6 +184,8 @@ let stepForward = () => {
 
   if (algo == "dijkstra") {
     stepForwardDijkstra();
+  } else {
+    stepForwardDV();
   }
 };
 
@@ -192,6 +194,8 @@ let stepBackward = () => {
 
   if (algo == "dijkstra") {
     stepBackwardDijkstra();
+  } else {
+    stepBackwardDV();
   }
 };
 

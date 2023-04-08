@@ -114,6 +114,8 @@ const stepBackwardDijkstra = function () {
 };
 
 const runToCompleteDijkstra = async () => {
+  if (!isInit()) return;
+
   let res = stepForwardDijkstra();
   while (res) {
     await sleep();
