@@ -8,12 +8,13 @@
   </head>
   <body>
     <div id="cy"></div>
-    
+
     <div>
       <table id="distanceTable"></table>
     </div>
     <div>
       <label for="algorithm">Choose an algorithm and select nodes</label>
+      <br />
       <select name="algorithm" id="algorithm">
         <option value="dijkstra">Dijkstra</option>
         <option value="bellman ford">Distance Vector</option>
@@ -22,30 +23,33 @@
       <select id="end" class="nodeSelect"></select>
       <!-- <input type = "text" placeholder="Type Your Starting Node" id="start">
       <input type = "text" placeholder="Type Your Ending Node" id="end"> -->
-      <button id="algoBtn">Run The Algorithm</button>
+      <button id="algoBtn">Run/Reset</button>
+      <button id="runToComplete">Animate Until Complete</button>
+      <button id="stepForward">Step Forward</button>
+      <button id="stepBackward">Step Back</button>
     </div>
     <div>
-      <input type = "text" placeholder="Enter node name" id="addNode">
-      <button id="addNodeBtn" type = "button">Add Node</button>
+      <input type="text" placeholder="Enter node name" id="addNode" />
+      <button id="addNodeBtn" type="button">Add Node</button>
     </div>
     <div>
       <select id="removeSelect" class="nodeSelect"></select>
-      <button id="removeNodeBtn" type = "button">Remove Node</button>
-     </div>
+      <button id="removeNodeBtn" type="button">Remove Node</button>
+    </div>
     <div>
       <select id="edge1" class="nodeSelect"></select>
       <select id="edge2" class="nodeSelect"></select>
-      <input type = "number" placeholder="add weight" id="weight">
-      <button id="addEdgeBtn" type = "button">Add Edge</button>
+      <input type="number" placeholder="add weight" id="weight" />
+      <button id="addEdgeBtn" type="button">Add Edge</button>
     </div>
     <div>
       <select id="updateEdgeSelect" class="edgeSelect"></select>
-      <input type = "number" placeholder="New weight" id="updateEdgeWeight">
-      <button id="updateEdgeBtn" type = "button">Update Edge</button>
+      <input type="number" placeholder="New weight" id="updateEdgeWeight" />
+      <button id="updateEdgeBtn" type="button">Update Edge</button>
     </div>
     <div>
       <select id="removeEdgeSelect" class="edgeSelect"></select>
-      <button id="removeEdgeBtn" type = "button">Remove Edge</button>
+      <button id="removeEdgeBtn" type="button">Remove Edge</button>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
