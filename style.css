@@ -27,7 +27,7 @@ body {
 #cy {
   height: 500px;
   width: 500px;
-  display: block;
+  display: inline-block;
   background: rgba(256, 256, 256, 0.3);
   border-radius: 10px;
   border: 1px gray solid;
@@ -52,3 +52,27 @@ input {
   border: none;
 }
 
+#distanceTable {
+  margin: 10px;
+  border-collapse: collapse;
+  display: inline-block;
+}
+
+#distanceTable th,
+#distanceTable td {
+  padding: 7px 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+#distanceTable th, 
+#distanceTable td:first-child {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: center;
+}
+
+#graphContainer{
+  display: flex;
+  align-items: center;
+}
