@@ -101,6 +101,11 @@ const stepForward = function () {
   if (t_global >= traversal_global.length) {
     // traveling shortest path
     highlight2(shortestPath_global[t_global - traversal_global.length]);
+
+    //if equal, have to unhighlight last element of traversal array (edge case)
+    if(t_global === traversal_global.length){
+      unhighlight1(traversal_global[t_global - 1]);
+    }
   } else {
     // traveling traversal => only update table here
 
