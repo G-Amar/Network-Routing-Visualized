@@ -1,4 +1,4 @@
-# CPS706-Routing
+# Network-Routing-Visualized
 
 https://routing-visualization-aaang.netlify.app/
 
