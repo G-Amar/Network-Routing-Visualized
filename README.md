@@ -21,7 +21,7 @@ This project was inspired by the need to teach routing algorithms in computer ne
 
 This project was the collective contributions following individuals:
 
-- Amar Gupta ([@G-Amar](https://github.com/G-Amar)) - Project lead and implemented the algorithms, modelled the data for routing tables, used the library, helped with styling.
+- Amar Gupta ([@G-Amar](https://github.com/G-Amar)) - Project lead and implemented the algorithms, modelled and recorded the data for routing tables, used the library, helped with styling.
 - Hoang Nguyen ([@HoangNguyen-CA](https://github.com/HoangNguyen-CA)) - Implemented the animations, styling, library.
 - Afnan ([@afnanc](https://github.com/afnanc)) - Implemented the JavaScript functionality and css.
 - Ammar Chaudhry ([@AmmarC10](https://github.com/AmmarC10)) - Implemented the JavaScript functionality and css.
